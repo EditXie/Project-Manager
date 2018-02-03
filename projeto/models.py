@@ -60,7 +60,7 @@ class Tarefa(models.Model):
     duracao_total = models.DurationField(null=True,default=timedelta(seconds=0))
     status = models.CharField(max_length=1,default=0,choices=STATUS_TAREFA)
     responsavel = models.ForeignKey(Funcionario,null=True)
-    pre_requisito = models.ManyToManyField("self",null=True,
+    pre_requisito = models.ManyToManyField("self",
                                 symmetrical=False,
                                 related_name="pre_requisitos")
 
