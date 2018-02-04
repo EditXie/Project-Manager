@@ -35,6 +35,24 @@ Projeto: **Implementação de um simples gerenciador de projetos.**
 __PS: A funcionalidade de notificações será implementada em versões futuras.__
 
 
+## Como contribuir?
+
+* Clone o repositório.
+* Crie uma virtualenv com Python 3.
+* Ative a virtualenv.
+* Instale as dependências.
+* Rode as migrações.
+
+```
+git clone https://github.com/Marlysson/Project-Manager.git
+cd Project-Manager
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python contrib/env_gen.py
+python manage.py migrate
+```
+
 
 ## Projeto de classes inicial
 
