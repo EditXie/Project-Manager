@@ -39,6 +39,7 @@ tarefa_patterns = [
 
 urlpatterns = [
     url(r"^$", views.index, name="projetos"),
+    url(r"^login$", views.LoginView.as_view(), name="login"),
     url(r"^funcionarios$", views.funcionarios, name="funcionarios"),
     url(r"^novo_projeto$", views.novo_projeto, name="novo_projeto"),
     url(r"^novo_funcionario$", views.novo_funcionario, name="novo_funcionario"),

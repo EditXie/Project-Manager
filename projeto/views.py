@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-
+from django.views.generic import TemplateView
+from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
@@ -132,3 +133,12 @@ def permissao_iniciar(request, id_tarefa):
 
 def get_usuario(request):
     return Funcionario.objects.get(id=1)
+
+
+class LoginView(TemplateView):
+    '''
+    View de Login do Sistema
+    '''
+
+    template_name = 'login.html'
+
