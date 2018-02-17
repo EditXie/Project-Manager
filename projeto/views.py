@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.views import LogoutView
+from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
+from django.contrib.auth.models import User
 from .models import Projeto, Funcionario, Tarefa, Comentario
 from .forms import FuncionarioForm
 
@@ -142,3 +146,24 @@ class LoginView(TemplateView):
 
     template_name = 'login.html'
 
+    def post(self, request, *args, **kwargs):
+        data = request.POST.copy()
+
+        username = data.get('username')
+        password = data.get('password')
+
+        crendentials = {'username': username, 'password': password}
+        user = authenticate(request, **crendentials)
+        
+        if user:
+            auth_login(request, user)
+            print('usuario: ', request.user)
+            return redirect(reverse('projetos'))
+        else:
+            messages.error(request, 'Usuário ou senha inválidos')
+            return redirect(reverse('login'))
+
+
+class LogoutView(LogoutView):
+
+    next_page = 'login'

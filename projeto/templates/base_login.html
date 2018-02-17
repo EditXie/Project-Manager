@@ -7,9 +7,14 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
+	{% block css %}
+	
+	{% endblock css %}
 </head>
 <body>
-
+<div class="col-md-8 col-md-offset-2" style="margin-top: 5px;">
+	{% include "includes/messages.html" %}
+</div>
 <div class="container-fluid
 			col-lg-8 col-lg-offset-2
 			col-md-8 col-md-offset-2
