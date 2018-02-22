@@ -1,38 +1,44 @@
 from django.shortcuts import render, redirect
-
+from django.views.generic import TemplateView
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
+from django.contrib.auth.models import User
 from .models import Projeto, Funcionario, Tarefa, Comentario
 from .forms import FuncionarioForm
 
-
+@login_required
 def index(request):
     projetos = Projeto.objects.all()
     contexto = {"projetos": projetos}
     return render(request, "projetos.html", contexto)
 
-
+@login_required
 def novo_projeto(request):
     nome = request.POST.get("nome")
     descricao = request.POST.get("descricao")
     novo = Projeto.objects.create(nome=nome, descricao=descricao)
     return redirect("projetos")
 
-
+@login_required
 def funcionarios(request):
     funcionarios = Funcionario.objects.all()
     contexto = {"funcionarios": funcionarios}
     return render(request, "funcionarios.html", contexto)
 
-
+@login_required
 def novo_funcionario(request):
     novo_funcionario = FuncionarioForm(request.POST)
     if novo_funcionario.is_valid():
         novo_funcionario.save()
     return redirect("funcionarios")
 
-
+@login_required
 def tarefas(request):
     tarefas = Tarefa.objects.all()
     projetos = Projeto.objects.all()
@@ -46,12 +52,12 @@ def tarefas(request):
 
     return render(request, "tarefas.html", contexto)
 
-
+@login_required
 def tarefa(request, id_tarefa):
     tarefa = Tarefa.objects.get(id=id_tarefa)
     return render(request, "tarefa.html", {"tarefa": tarefa})
 
-
+@login_required
 def nova_tarefa(request):
     if request.method == 'POST':
         titulo = request.POST.get("titulo").capitalize()
@@ -92,6 +98,7 @@ def comentar(request, id_tarefa):
     return redirect("tarefa", id_tarefa=id_tarefa)
 
 
+@login_required
 def iniciar_tarefa(request, id_tarefa):
     tarefa = Tarefa.objects.get(id=id_tarefa)
     pre_requisitos = tarefa.pre_requisitos.all()
@@ -132,3 +139,31 @@ def permissao_iniciar(request, id_tarefa):
 
 def get_usuario(request):
     return Funcionario.objects.get(id=1)
+
+class LoginView(TemplateView):
+    '''
+    View de Login do Sistema
+    '''
+
+    template_name = 'login.html'
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST.copy()
+
+        username = data.get('username')
+        password = data.get('password')
+
+        crendentials = {'username': username, 'password': password}
+        user = authenticate(request, **crendentials)
+        
+        if user:
+            auth_login(request, user)
+            return redirect(reverse('projetos'))
+        else:
+            messages.error(request, 'Usuário ou senha inválidos')
+            return redirect(reverse('login'))
+
+
+class LogoutView(LogoutView):
+
+    next_page = 'login'
