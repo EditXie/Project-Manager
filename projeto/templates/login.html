@@ -1,34 +1,25 @@
 {% extends 'base_login.html' %}
-{% load static %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/login/login.css' %}">
-{% endblock css %}
 
 {% block conteudo %}
 
 <form method="POST">
-    {% csrf_token %}
-    <div class="form-group row col-md-7">
-        <label for="exampleInputEmail1">Usuário</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" name="username" maxlength="150">
-    </div>
-    <div class="form-group row col-md-7">
-        <label for="exampleInputPassword1">Senha</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" maxlength="128">
-    </div>
-    <div class="checkbox row col-md-6">
-        <label>
-        <input type="checkbox"> Lembrar
-        </label>
-    </div>
-    <div class="row col-md-6">
-        <button type="submit" class="btn btn-default">Submit</button>
-        </br>
-    </div>
-    <div class="row col-md-6">
-        </br>
-        <a href="#" id="register"> Registrar-se </a>
+    <div class="col-md-8 formulario">
+        {% csrf_token %}
+        <div class="row form-group row col-md-12">
+            <label for="exampleInputEmail1">Usuário</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" name="username" maxlength="150">
+        </div>
+        <div class="row form-group row col-md-12">
+            <label for="exampleInputPassword1">Senha</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" maxlength="128">
+        </div>
+        
+        <div class="row col-md-12">
+            </br>
+            <a href="#" id="register"> Registrar-se </a>
+            <button type="submit" class="btn btn-default pull-right">Entrar</button>
+            </br>
+        </div>
     </div>
 </form>
 
