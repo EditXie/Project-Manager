@@ -1,22 +1,23 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
-from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth.views import LogoutView
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
-
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Projeto, Funcionario, Tarefa, Comentario
+from django.contrib.auth.views import LogoutView
+from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_http_methods
+from django.views.generic import TemplateView
 from .forms import FuncionarioForm
+from .models import Projeto, Funcionario, Tarefa, Comentario
+
 
 @login_required
 def index(request):
     projetos = Projeto.objects.all()
     contexto = {"projetos": projetos}
     return render(request, "projetos.html", contexto)
+
 
 @login_required
 def novo_projeto(request):
@@ -25,11 +26,13 @@ def novo_projeto(request):
     novo = Projeto.objects.create(nome=nome, descricao=descricao)
     return redirect("projetos")
 
+
 @login_required
 def funcionarios(request):
     funcionarios = Funcionario.objects.all()
     contexto = {"funcionarios": funcionarios}
     return render(request, "funcionarios.html", contexto)
+
 
 @login_required
 def novo_funcionario(request):
@@ -37,6 +40,7 @@ def novo_funcionario(request):
     if novo_funcionario.is_valid():
         novo_funcionario.save()
     return redirect("funcionarios")
+
 
 @login_required
 def tarefas(request):
@@ -52,10 +56,12 @@ def tarefas(request):
 
     return render(request, "tarefas.html", contexto)
 
+
 @login_required
 def tarefa(request, id_tarefa):
     tarefa = Tarefa.objects.get(id=id_tarefa)
     return render(request, "tarefa.html", {"tarefa": tarefa})
+
 
 @login_required
 def nova_tarefa(request):
@@ -140,12 +146,12 @@ def permissao_iniciar(request, id_tarefa):
 def get_usuario(request):
     return Funcionario.objects.get(id=1)
 
+
 class LoginView(TemplateView):
     '''
     View de Login do Sistema
     '''
-
-    template_name = 'login.html'
+    template_name = 'accounts/login.html'
 
     def post(self, request, *args, **kwargs):
         data = request.POST.copy()
@@ -155,7 +161,7 @@ class LoginView(TemplateView):
 
         crendentials = {'username': username, 'password': password}
         user = authenticate(request, **crendentials)
-        
+
         if user:
             auth_login(request, user)
             return redirect(reverse('projetos'))
