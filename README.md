@@ -53,6 +53,10 @@ python contrib/env_gen.py
 python manage.py migrate
 ```
 
+## Como sincronizar seu fork
+
+Leia [how_to](how_to.md)
+
 
 ## Projeto de classes inicial
 
