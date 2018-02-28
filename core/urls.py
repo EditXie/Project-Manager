@@ -1,49 +1,49 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from . import views
 
 
 tarefa_patterns = [
-    url(r"^$", views.tarefas, name="tarefas"),
-    url(r"^(?P<id_tarefa>\d+)$", views.tarefa, name="tarefa"),
-    url(
-        r"^(?P<id_tarefa>\d+)/iniciar$",
+    path("", views.tarefas, name="tarefas"),
+    path("<int:id_tarefa>", views.tarefa, name="tarefa"),
+    path(
+        "<int:id_tarefa>/iniciar",
         views.iniciar_tarefa,
         name="iniciar_tarefa"
     ),
-    url(
-        r"^(?P<id_tarefa>\d+)/pausar$",
+    path(
+        "<int:id_tarefa>/pausar",
         views.pausar_tarefa,
         name="pausar_tarefa"
     ),
-    url(
-        r"^(?P<id_tarefa>\d+)/concluir$",
+    path(
+        "<int:id_tarefa>/concluir",
         views.concluir_tarefa,
         name="concluir_tarefa"
     ),
-    url(
-        r"^(?P<id_tarefa>\d+)/deletar$",
+    path(
+        "<int:id_tarefa>/deletar",
         views.deletar_tarefa,
         name="deletar_tarefa"
     ),
-    url(
-        r"^(?P<id_tarefa>\d+)/comentar/$",
+    path(
+        "<int:id_tarefa>/comentar",
         views.comentar,
         name="comentar"
     ),
-    url(
-        r"^(?P<id_tarefa>\d+)/permitido_iniciar/$",
+    path(
+        "<int:id_tarefa>/permitido_iniciar",
         views.permissao_iniciar,
         name="permissao_iniciar"
     ),
 ]
 
 urlpatterns = [
-    url(r"^$", views.index, name="projetos"),
-    url(r"^login/$", views.LoginView.as_view(), name="login"),
-    url(r"^logout/$", views.LogoutView.as_view(), name="logout"),
-    url(r"^funcionarios$", views.funcionarios, name="funcionarios"),
-    url(r"^novo_projeto$", views.novo_projeto, name="novo_projeto"),
-    url(r"^novo_funcionario$", views.novo_funcionario, name="novo_funcionario"),
-    url(r"^nova_tarefa$", views.nova_tarefa, name="nova_tarefa"),
-    url(r'^tarefa/', include(tarefa_patterns)),
+    path("", views.index, name="projetos"),
+    path("login/", views.LoginView.as_view(), name="login"),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
+    path("funcionarios/", views.funcionarios, name="funcionarios"),
+    path("novo_projeto/", views.novo_projeto, name="novo_projeto"),
+    path("novo_funcionario/", views.novo_funcionario, name="novo_funcionario"),
+    path("nova_tarefa/", views.nova_tarefa, name="nova_tarefa"),
+    path("tarefa/", include(tarefa_patterns)),
 ]

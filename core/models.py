@@ -71,7 +71,7 @@ class Tarefa(models.Model):
         default=timedelta(seconds=0)
     )
     status = models.CharField(max_length=1, default=0, choices=STATUS_TAREFA)
-    responsavel = models.ForeignKey(Funcionario, null=True)
+    responsavel = models.ForeignKey(Funcionario, null=True,on_delete=models.SET_NULL)
     pre_requisito = models.ManyToManyField(
         "self",
         symmetrical=False,
