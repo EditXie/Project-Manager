@@ -35,20 +35,30 @@ Projeto: **Implementação de um simples gerenciador de projetos.**
 __PS: A funcionalidade de notificações será implementada em versões futuras.__
 
 
+## Usando [pipenv](https://docs.pipenv.org/) [GitHub](https://github.com/pypa/pipenv)
+
+> Requer o Python 3.6 ou superior.
+
+```
+sudo pip install pipenv
+pipenv --python 3.6
+pipenv install --dev
+```
+
+
 ## Como contribuir?
 
 * Clone o repositório.
-* Crie uma virtualenv com Python 3.
-* Ative a virtualenv.
 * Instale as dependências.
+* Ative o ambiente.
+* Crie um `.env`
 * Rode as migrações.
 
 ```
 git clone https://github.com/Marlysson/Project-Manager.git
 cd Project-Manager
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+pipenv install --dev
+pipenv shell
 python contrib/env_gen.py
 python manage.py migrate
 ```
