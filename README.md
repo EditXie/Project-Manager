@@ -40,12 +40,12 @@ Projeto: **Implementação de um simples gerenciador de projetos.**
 ## Building the development environment
 
 
-```
+```bash
 # Install dependence's and environment's library
 sudo pip install pipenv
 ```
 
-```
+```bash
 # Clone the repository 
 git clone https://github.com/Marlysson/Project-Manager.git
 
