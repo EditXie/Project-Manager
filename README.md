@@ -32,42 +32,43 @@ Projeto: **Implementação de um simples gerenciador de projetos.**
 > Há o conceito de um gestor seguir determinada tarefa, onde em determinados eventos da tarefa seguida ele pode receber notificação no seu painel a respeito desse evento, seja de conclusão ou de conclusão do item de checklist , se houver.
 
 
-__PS: A funcionalidade de notificações será implementada em versões futuras.__
+## Requirements
 
+- Python 3.6
+- [Pipenv](https://docs.pipenv.org/)
 
-## Usando [pipenv](https://docs.pipenv.org/) [GitHub](https://github.com/pypa/pipenv)
+## Building the development environment
 
-> Requer o Python 3.6 ou superior.
 
 ```
+# Install dependence's and environment's library
 sudo pip install pipenv
-pipenv --python 3.6
-pipenv install --dev
 ```
 
-
-## Como contribuir?
-
-* Clone o repositório.
-* Instale as dependências.
-* Ative o ambiente.
-* Crie um `.env`
-* Rode as migrações.
-
 ```
+# Clone the repository 
 git clone https://github.com/Marlysson/Project-Manager.git
+
+# Enter the project
 cd Project-Manager
-pipenv install --dev
-pipenv shell
+
+# Install dependences
+pipenv install
+
+# Create and load environment variables
 python contrib/env_gen.py
+
+# Run migrations
 python manage.py migrate
+
+# Activate environment's project
+pipenv shell
 ```
 
-## Como sincronizar seu fork
+## How synchonize your fork
 
-Leia [how_to](how_to.md)
+Read [how_to](how_to.md)
 
-
-## Projeto de classes inicial
+## Inicial class diagram's project
 
 ![Projeto de classes](https://github.com/Marlysson/Project-Manager/blob/master/Documenta%C3%A7%C3%A3o/Diagrama.png)
