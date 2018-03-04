@@ -58,11 +58,11 @@ pipenv install
 # Create and load environment variables
 python contrib/env_gen.py
 
-# Run migrations
-python manage.py migrate
-
 # Activate environment's project
 pipenv shell
+
+# Run migrations
+python manage.py migrate
 ```
 
 ## How synchonize your fork
